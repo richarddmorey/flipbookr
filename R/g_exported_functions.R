@@ -154,10 +154,8 @@ chunk_reveal <- function(chunk_name = NULL,
                        )
 
   # if (chunk_reveal)
-  text |>
-    stringr::str_replace('^count: false\n','count: true\n') |>
-    knitr::knit(text = _, quiet = FALSE) |>
-    paste(collapse = "\n")
+  paste(knitr::knit(text = text, quiet = F), collapse = "\n")
+
 }
 
 
