@@ -40,6 +40,7 @@ knit_text_and_collapse <- function(text){
 #' @param color defines css parameter, defaults to "black"
 #' @param chunk_options input 'knitr' code chunk options as a string, default to empty string "", useful input might be "fig.height = 4, fig.width = 3"
 #' @param font_size_code this ain't working yet!
+#' @param count_first remove the 'count: false' from the first slide? (default is TRUE)
 #'
 #' @importFrom stringr str_remove
 #' @return a string object is returned will only work in 'knitr' context
@@ -72,7 +73,8 @@ chunk_reveal <- function(chunk_name = NULL,
                    float = "left",
                    chunk_options = "",
                    color = c("black", "black", "black"),
-                   font_size_code = "80%"
+                   font_size_code = "80%",
+                   count_first = TRUE
                    #,
                    # out.width = "70%",
                    # out.height = "70%"
@@ -154,7 +156,8 @@ chunk_reveal <- function(chunk_name = NULL,
                        #out.width = out.width
                        )
 
-  text = stringr::str_remove(text, '^count: false\n')
+  if(isTRUE(count_first))
+    text = stringr::str_remove(text, '^count: false\n')
 
   # if (chunk_reveal)
   paste(knitr::knit(text = text, quiet = F), collapse = "\n")
